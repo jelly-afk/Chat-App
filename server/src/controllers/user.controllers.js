@@ -23,7 +23,9 @@ const generateAccessAndRefreshToken = async (userId) => {
 const userRegister = asyncHandler(async (req, res) => {
   const { username, fullName, password, email, gender } = req.body;
   if (
-    [username, fullName, email, password].some((field) => !field || field.trim() === "")
+    [username, fullName, email, password].some(
+      (field) => !field || field.trim() === ""
+    )
   ) {
     throw new ApiError(400, "all fields are required");
   }
@@ -108,4 +110,12 @@ const userLogout = asyncHandler(async (res, req) => {
     .json(new ApiResponse(200, {}, "user logged out successfully"));
 });
 
-export { userRegister, userLogin, userLogout };
+const getAllUsers = asyncHandler(async (req, res) => {
+  const userId = req.body.user._id;
+  const users = await User.find({ id: { $nin: userId } });
+
+  res
+    .status(200)
+    .json(new ApiResponse(200, users, "users fetched successfully"));
+});
+export { userRegister, userLogin, userLogout , getAllUsers};
