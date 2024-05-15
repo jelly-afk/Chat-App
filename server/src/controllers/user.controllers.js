@@ -112,10 +112,10 @@ const userLogout = asyncHandler(async (res, req) => {
 
 const getAllUsers = asyncHandler(async (req, res) => {
   const userId = req.body.user._id;
-  const users = await User.find({ id: { $nin: userId } });
+  const users = await User.find({ id: { $nin: [userId] } }).select("-password");
 
   res
     .status(200)
     .json(new ApiResponse(200, users, "users fetched successfully"));
 });
-export { userRegister, userLogin, userLogout , getAllUsers};
+export { userRegister, userLogin, userLogout, getAllUsers };

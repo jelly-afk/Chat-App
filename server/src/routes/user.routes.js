@@ -12,5 +12,5 @@ const userRouter = Router();
 userRouter.route("/register").post(userRegister);
 userRouter.route("/login").post(userLogin);
 userRouter.route("/logout").post(jwtVerify, userLogout);
-userRouter.route("/getUsers").get(jwtVerify, getAllUsers);
+userRouter.route("/get-all").get(jwtVerify, getAllUsers);
 export default userRouter;
