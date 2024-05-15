@@ -41,7 +41,11 @@ const getMessages = asyncHandler(async (req, res) => {
   const converesation = await Conversation.findOne({
     participants: { $all: [userToChatWithId, currentUserId] },
   }).populate("messages");
-
+  if (!converesation) {
+    return res
+      .status(200)
+      .json(new ApiResponse(200, [], "chat fetched successfully"));
+  }
   console.log(converesation.messages);
   res
     .status(200)
