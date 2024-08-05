@@ -1,1 +1,2 @@
-simple chat app using react, node
+simple chat app using react
+
